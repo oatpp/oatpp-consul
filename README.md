@@ -4,6 +4,9 @@ oatpp client for consul
 - [oatpp::consul::Client](https://github.com/oatpp/oatpp-consul/blob/master/Client.hpp) - Simple consul-KV API.
 - [oatpp::consul::rest::Client](https://github.com/oatpp/oatpp-consul/blob/master/rest/Client.hpp) - oatpp retrofit-like client for consul. Currently provides consul KV, Agent-Checks, Agent-Services API.
 
+More about oatpp see [https://oatpp.io/](https://oatpp.io/)  
+More about consul API see [https://www.consul.io/api/index.html](https://www.consul.io/api/index.html)
+
 ## Example
 
 For full example project see: [oatpp-consul example](https://github.com/oatpp/oatpp-examples/tree/master/consul)
@@ -71,6 +74,7 @@ For full example project see: [oatpp-consul example](https://github.com/oatpp/oa
   auto response = restClient->agentServiceRegister(payload);
   
   OATPP_LOGD("consul", "response='%s'", response->readBodyToString()->c_str());
-
+  
+...
 ```
 
