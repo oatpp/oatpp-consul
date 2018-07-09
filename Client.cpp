@@ -50,7 +50,7 @@ rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) 
       return list->getFirst();
     }
   }
-  return nullptr;
+  throw Error("[oatpp::consul::client::kvGetMetadata()]: Error", response->statusCode);
 }
 
 rest::KVMetadata::ObjectWrapper Client::kvGetMetadataInDC(const oatpp::String& key, const oatpp::String& datacenter) const {
@@ -61,7 +61,7 @@ rest::KVMetadata::ObjectWrapper Client::kvGetMetadataInDC(const oatpp::String& k
       return list->getFirst();
     }
   }
-  return nullptr;
+  throw Error("[oatpp::consul::client::kvGetMetadataInDC()]: Error", response->statusCode);
 }
 
 oatpp::String Client::kvGet(const oatpp::String& key) const {
@@ -69,7 +69,7 @@ oatpp::String Client::kvGet(const oatpp::String& key) const {
   if(response->statusCode == 200){
     return response->readBodyToString();
   }
-  return nullptr;
+  throw Error("[oatpp::consul::client::kvGet()]: Error", response->statusCode);
 }
 
 oatpp::String Client::kvGetInDC(const oatpp::String& key, const oatpp::String& datacenter) const {
@@ -77,7 +77,44 @@ oatpp::String Client::kvGetInDC(const oatpp::String& key, const oatpp::String& d
   if(response->statusCode == 200){
     return response->readBodyToString();
   }
-  return nullptr;
+  throw Error("[oatpp::consul::client::kvGetInDC()]: Error", response->statusCode);
+}
+  
+
+bool Client::kvPut(const oatpp::String& key, const oatpp::String& value) const {
+  auto response = m_restClient->kvPut(key, value);
+  if(response->statusCode == 200){
+    auto body = response->readBodyToString();
+    return body && body == "true";
+  }
+  throw Error("[oatpp::consul::client::kvPut()]: Error", response->statusCode);
+}
+
+bool Client::kvPutInDC(const oatpp::String& key, const oatpp::String& value, const oatpp::String& datacenter) const {
+  auto response = m_restClient->kvPutInDC(key, value, datacenter);
+  if(response->statusCode == 200){
+    auto body = response->readBodyToString();
+    return body && body == "true";
+  }
+  throw Error("[oatpp::consul::client::kvPutInDC()]: Error", response->statusCode);
+}
+
+bool Client::kvDelete(const oatpp::String& key) const {
+  auto response = m_restClient->kvDelete(key);
+  if(response->statusCode == 200){
+    auto body = response->readBodyToString();
+    return body && body == "true";
+  }
+  throw Error("[oatpp::consul::client::kvDelete()]: Error", response->statusCode);
+}
+
+bool Client::kvDeleteInDC(const oatpp::String& key, const oatpp::String& datacenter) const {
+  auto response = m_restClient->kvDeleteInDC(key, datacenter);
+  if(response->statusCode == 200){
+    auto body = response->readBodyToString();
+    return body && body == "true";
+  }
+  throw Error("[oatpp::consul::client::kvDeleteInDC()]: Error", response->statusCode);
 }
   
 }}

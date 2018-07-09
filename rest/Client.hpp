@@ -33,6 +33,11 @@
 
 namespace oatpp { namespace consul { namespace rest {
   
+/**
+ *  oatpp::consul::rest::Client provides consul rest API calls
+ *  for Simple and Async oatpp API. For more convenient methods
+ *  see oatpp::consul::Client
+ */
 class Client : public oatpp::web::client::ApiClient {
 private:
   constexpr static const char* GET = "GET";
@@ -53,7 +58,7 @@ public:
   API_CALL(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDC, PATH(String, key), PATH(String, datacenter, "dc"))
   
   API_CALL(PUT, "v1/kv/{key}", kvPut, PATH(String, key), BODY_STRING(String, data))
-  API_CALL(PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), QUERY(String, datacenter, "dc"), BODY_STRING(String, data))
+  API_CALL(PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
   
   API_CALL(DELETE, "v1/kv/{key}", kvDelete, PATH(String, key))
   API_CALL(DELETE, "v1/kv/{key}", kvDeleteInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
@@ -65,7 +70,7 @@ public:
   API_CALL_ASYNC(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDCAsync, PATH(String, key), PATH(String, datacenter, "dc"))
   
   API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutAsync, PATH(String, key), BODY_STRING(String, data))
-  API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"), BODY_STRING(String, data))
+  API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutInDCAsync, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
   
   API_CALL_ASYNC(DELETE, "v1/kv/{key}", kvDeleteAsync, PATH(String, key))
   API_CALL_ASYNC(DELETE, "v1/kv/{key}", kvDeleteInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
