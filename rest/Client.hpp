@@ -46,22 +46,52 @@ public:
   //---------------------------------------------------------------------------------------------------
   // KV
   
-  API_CALL(GET, "v1/kv/{key}", getKV, PATH(String, key))
-  API_CALL(GET, "v1/kv/{key}", getKVInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
+  API_CALL(GET, "v1/kv/{key}", kvGet, PATH(String, key))
+  API_CALL(GET, "v1/kv/{key}", kvGetInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
   
-  API_CALL(PUT, "v1/kv/{key}", putKV, PATH(String, key), BODY_STRING(String, data))
-  API_CALL(PUT, "v1/kv/{key}", putKVInDC, PATH(String, key), QUERY(String, datacenter, "dc"), BODY_STRING(String, data))
+  API_CALL(GET, "v1/kv/{key}?raw", kvGetRaw, PATH(String, key))
+  API_CALL(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDC, PATH(String, key), PATH(String, datacenter, "dc"))
   
-  API_CALL(DELETE, "v1/kv/{key}", deleteKV, PATH(String, key))
-  API_CALL(DELETE, "v1/kv/{key}", deleteKVInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
+  API_CALL(PUT, "v1/kv/{key}", kvPut, PATH(String, key), BODY_STRING(String, data))
+  API_CALL(PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), QUERY(String, datacenter, "dc"), BODY_STRING(String, data))
+  
+  API_CALL(DELETE, "v1/kv/{key}", kvDelete, PATH(String, key))
+  API_CALL(DELETE, "v1/kv/{key}", kvDeleteInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
+  
+  API_CALL_ASYNC(GET, "v1/kv/{key}", kvGetAsync, PATH(String, key))
+  API_CALL_ASYNC(GET, "v1/kv/{key}", kvGetInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
+  
+  API_CALL_ASYNC(GET, "v1/kv/{key}?raw", kvGetRawAsync, PATH(String, key))
+  API_CALL_ASYNC(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDCAsync, PATH(String, key), PATH(String, datacenter, "dc"))
+  
+  API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutAsync, PATH(String, key), BODY_STRING(String, data))
+  API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"), BODY_STRING(String, data))
+  
+  API_CALL_ASYNC(DELETE, "v1/kv/{key}", kvDeleteAsync, PATH(String, key))
+  API_CALL_ASYNC(DELETE, "v1/kv/{key}", kvDeleteInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
   
   
   //---------------------------------------------------------------------------------------------------
   // AgentChecks
   
-  API_CALL(GET, "v1/agent/checks", getAgentChecks)
+  API_CALL(GET, "v1/agent/checks", agentGetChecks)
+  API_CALL(PUT, "v1/agent/check/register", agentCheckRegister, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL(PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregister, PATH(String, checkId))
   
-  API_CALL(PUT, "v1/agent/check/register", putAgentChecksRegister, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(GET, "v1/agent/checks", agentGetChecksAsync)
+  API_CALL_ASYNC(PUT, "v1/agent/check/register", agentCheckRegisterAsync, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregisterAsync, PATH(String, checkId))
+  
+  //---------------------------------------------------------------------------------------------------
+  // AgentService
+  
+  API_CALL(GET, "v1/agent/services", agentGetServices)
+  API_CALL(PUT, "v1/agent/service/register", agentServiceRegister, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
+  API_CALL(PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregister, PATH(String, serviceId))
+  
+  API_CALL_ASYNC(GET, "v1/agent/services", agentGetServicesAsync)
+  API_CALL_ASYNC(PUT, "v1/agent/service/register", agentServiceRegisterAsync, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregisterAsync, PATH(String, serviceId))
   
   
 #include OATPP_CODEGEN_END(ApiClient)

@@ -25,6 +25,8 @@
 #ifndef oatpp_consul_rest_DTOs_hpp
 #define oatpp_consul_rest_DTOs_hpp
 
+#include "oatpp/encoding/Base64.hpp"
+
 #include "oatpp/core/data/mapping/type/Object.hpp"
 #include "oatpp/core/macro/codegen.hpp"
 
@@ -48,6 +50,21 @@ class KVMetadata : public oatpp::data::mapping::type::Object {
   
   DTO_FIELD(Int32, flags, "Flags");
   
+private:
+  mutable String m_valueDecoded = nullptr;
+public:
+  
+  String getValueDecoded() const {
+    if(!m_valueDecoded) {
+      if(value) {
+        m_valueDecoded = oatpp::encoding::Base64::decode(value);
+      } else {
+        throw std::runtime_error("[oatpp::consul::rest::KVMetadata::getValueDecoded()]: Value is null. Can't decode value");
+      }
+    }
+    return m_valueDecoded;
+  }
+  
 };
   
 class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
@@ -70,7 +87,7 @@ class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
   DTO_FIELD(String, http, "HTTP");
   DTO_FIELD(String, method, "Method");
   
-  //DTO_FIELD(Map<String, List<String>::ObjectWrapper>::ObjectWrapper, header, "Header");
+  DTO_FIELD(Fields<List<String>::ObjectWrapper>::ObjectWrapper, header, "Header");
   
   DTO_FIELD(String, timeout, "Timeout");
   DTO_FIELD(Boolean, tlsSkipVerify, "TLSSkipVerify");
@@ -78,6 +95,30 @@ class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
   DTO_FIELD(String, ttl, "TTL");
   DTO_FIELD(String, serviceID, "ServiceID");
   DTO_FIELD(String, status, "Status");
+  
+};
+  
+class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
+  
+  DTO_INIT(AgentServiceRegisterPayload, Object)
+  
+  DTO_FIELD(String, name, "Name");
+  DTO_FIELD(String, id, "ID");
+  DTO_FIELD(List<String>::ObjectWrapper, tags, "Tags");
+  DTO_FIELD(String, address, "Address");
+  
+  DTO_FIELD(Fields<String>::ObjectWrapper, meta, "Meta");
+  
+  DTO_FIELD(Int32, port, "Port");
+  DTO_FIELD(String, kind, "Kind");
+  DTO_FIELD(String, proxyDestination, "ProxyDestination");
+  
+  //DTO_FIELD(Connect::ObjectWrapper, connect, "Connect")
+  
+  DTO_FIELD(AgentCheckRegisterPayload::ObjectWrapper, check, "Check");
+  DTO_FIELD(List<AgentCheckRegisterPayload::ObjectWrapper>::ObjectWrapper, checks, "Checks");
+  
+  DTO_FIELD(Boolean, enableTagOverride, "EnableTagOverride");
   
 };
   
