@@ -104,10 +104,10 @@ public:
   template<class Type>
   typename Type::ObjectWrapper kvGetAsDto(const oatpp::String& key, const std::shared_ptr<oatpp::data::mapping::ObjectMapper>& objectMapper) const {
     auto response = m_restClient->kvGetRaw(key);
-    if(response->statusCode == 200) {
+    if(response->getStatusCode() == 200) {
       return response->readBodyToDto<Type>(objectMapper);
     }
-    throw Error("[oatpp::consul::client::kvGetAsDto()]: Error", response->statusCode);
+    throw Error("[oatpp::consul::client::kvGetAsDto()]: Error", response->getStatusCode());
   }
   
   /**
@@ -118,10 +118,10 @@ public:
                                               const oatpp::String& datacenter,
                                               const std::shared_ptr<oatpp::data::mapping::ObjectMapper>& objectMapper) const {
     auto response = m_restClient->kvGetRawInDC(key, datacenter);
-    if(response->statusCode == 200) {
+    if(response->getStatusCode() == 200) {
       return response->readBodyToDto<Type>(objectMapper);
     }
-    throw Error("[oatpp::consul::client::kvGetAsDtoInDC()]: Error", response->statusCode);
+    throw Error("[oatpp::consul::client::kvGetAsDtoInDC()]: Error", response->getStatusCode());
   }
   
   /**
