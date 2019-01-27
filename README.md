@@ -1,4 +1,4 @@
-# oatpp-consul
+# oatpp-consul [![Build Status](https://dev.azure.com/lganzzzo/lganzzzo/_apis/build/status/oatpp.oatpp-consul?branchName=master)](https://dev.azure.com/lganzzzo/lganzzzo/_build/latest?definitionId=7?branchName=master)
 oatpp client for consul
 
 - [oatpp::consul::Client](https://github.com/oatpp/oatpp-consul/blob/master/Client.hpp) - Simple consul-KV API.
