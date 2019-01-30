@@ -9,7 +9,7 @@ More about consul API see [https://www.consul.io/api/index.html](https://www.con
 
 ## Example
 
-For full example project see: [oatpp-consul example](https://github.com/oatpp/oatpp-examples/tree/master/consul)
+For full example project see: [oatpp-consul example](https://github.com/oatpp/example-consul)
 
 ### KV
 
