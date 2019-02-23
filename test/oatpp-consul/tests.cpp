@@ -31,13 +31,12 @@ public:
   Test() : oatpp::test::UnitTest("MyTag")
   {}
 
-  bool onRun() override {
+  void onRun() override {
 
     auto client = oatpp::consul::Client::createShared(nullptr);
 
-    // TODO tests here
-
-    return true;
+    // TODO write correct  tests
+    
   }
 };
 
