@@ -34,9 +34,9 @@
 namespace oatpp { namespace consul { namespace rest {
   
 /**
- *  oatpp::consul::rest::Client provides consul rest API calls
- *  for Simple and Async oatpp API. For more convenient methods
- *  see oatpp::consul::Client
+ *  oatpp::consul::rest::Client provides consul rest API calls for Simple and Async oatpp API. <br>
+ *  For more convenient methods see &id:oatpp::consul::Client;. <br>
+ *  See Rest Client full declaration on github: [rest/Client.hpp](https://github.com/oatpp/oatpp-consul/blob/master/src/oatpp-consul/rest/Client.hpp);
  */
 class Client : public oatpp::web::client::ApiClient {
 private:
@@ -50,13 +50,13 @@ public:
   
   //---------------------------------------------------------------------------------------------------
   // KV
-  
+
   API_CALL(GET, "v1/kv/{key}", kvGet, PATH(String, key))
   API_CALL(GET, "v1/kv/{key}", kvGetInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
   
   API_CALL(GET, "v1/kv/{key}?raw", kvGetRaw, PATH(String, key))
   API_CALL(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDC, PATH(String, key), PATH(String, datacenter, "dc"))
-  
+
   API_CALL(PUT, "v1/kv/{key}", kvPut, PATH(String, key), BODY_STRING(String, data))
   API_CALL(PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
   
