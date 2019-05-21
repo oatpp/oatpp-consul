@@ -1,6 +1,6 @@
 # oatpp-consul [![Build Status](https://dev.azure.com/lganzzzo/lganzzzo/_apis/build/status/oatpp.oatpp-consul?branchName=master)](https://dev.azure.com/lganzzzo/lganzzzo/_build/latest?definitionId=7&branchName=master)
 
-**oatpp-consul** - extension for **oatpp** web framework.  
+**oatpp-consul** - extension for [oatpp web framework](https://github.com/oatpp/oatpp).  
 It provides Consul integration for oatpp applications.  
 
 See more:
