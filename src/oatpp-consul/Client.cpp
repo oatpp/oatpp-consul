@@ -45,7 +45,7 @@ Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& reque
 rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) const {
   auto response = m_restClient->kvGet(key);
   if(response->getStatusCode() == 200){
-    auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper);
+    auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper.get());
     if(list && list->count() > 0) {
       return list->getFirst();
     }
@@ -56,7 +56,7 @@ rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) 
 rest::KVMetadata::ObjectWrapper Client::kvGetMetadataInDC(const oatpp::String& key, const oatpp::String& datacenter) const {
   auto response = m_restClient->kvGetInDC(key, datacenter);
   if(response->getStatusCode() == 200){
-    auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper);
+    auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper.get());
     if(list && list->count() > 0) {
       return list->getFirst();
     }
