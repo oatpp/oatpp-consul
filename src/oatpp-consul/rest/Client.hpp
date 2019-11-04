@@ -40,9 +40,9 @@ namespace oatpp { namespace consul { namespace rest {
  */
 class Client : public oatpp::web::client::ApiClient {
 private:
-  constexpr static const char* GET = "GET";
-  constexpr static const char* PUT = "PUT";
-  constexpr static const char* DELETE = "DELETE";
+  constexpr static const char* HTTP_GET = "GET";
+  constexpr static const char* HTTP_PUT = "PUT";
+  constexpr static const char* HTTP_DELETE = "DELETE";
 public:
 #include OATPP_CODEGEN_BEGIN(ApiClient)
   
@@ -51,52 +51,52 @@ public:
   //---------------------------------------------------------------------------------------------------
   // KV
 
-  API_CALL(GET, "v1/kv/{key}", kvGet, PATH(String, key))
-  API_CALL(GET, "v1/kv/{key}", kvGetInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
+  API_CALL(HTTP_GET, "v1/kv/{key}", kvGet, PATH(String, key))
+  API_CALL(HTTP_GET, "v1/kv/{key}", kvGetInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
   
-  API_CALL(GET, "v1/kv/{key}?raw", kvGetRaw, PATH(String, key))
-  API_CALL(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDC, PATH(String, key), PATH(String, datacenter, "dc"))
+  API_CALL(HTTP_GET, "v1/kv/{key}?raw", kvGetRaw, PATH(String, key))
+  API_CALL(HTTP_GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDC, PATH(String, key), PATH(String, datacenter, "dc"))
 
-  API_CALL(PUT, "v1/kv/{key}", kvPut, PATH(String, key), BODY_STRING(String, data))
-  API_CALL(PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
+  API_CALL(HTTP_PUT, "v1/kv/{key}", kvPut, PATH(String, key), BODY_STRING(String, data))
+  API_CALL(HTTP_PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
   
-  API_CALL(DELETE, "v1/kv/{key}", kvDelete, PATH(String, key))
-  API_CALL(DELETE, "v1/kv/{key}", kvDeleteInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
+  API_CALL(HTTP_DELETE, "v1/kv/{key}", kvDelete, PATH(String, key))
+  API_CALL(HTTP_DELETE, "v1/kv/{key}", kvDeleteInDC, PATH(String, key), QUERY(String, datacenter, "dc"))
   
-  API_CALL_ASYNC(GET, "v1/kv/{key}", kvGetAsync, PATH(String, key))
-  API_CALL_ASYNC(GET, "v1/kv/{key}", kvGetInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
+  API_CALL_ASYNC(HTTP_GET, "v1/kv/{key}", kvGetAsync, PATH(String, key))
+  API_CALL_ASYNC(HTTP_GET, "v1/kv/{key}", kvGetInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
   
-  API_CALL_ASYNC(GET, "v1/kv/{key}?raw", kvGetRawAsync, PATH(String, key))
-  API_CALL_ASYNC(GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDCAsync, PATH(String, key), PATH(String, datacenter, "dc"))
+  API_CALL_ASYNC(HTTP_GET, "v1/kv/{key}?raw", kvGetRawAsync, PATH(String, key))
+  API_CALL_ASYNC(HTTP_GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDCAsync, PATH(String, key), PATH(String, datacenter, "dc"))
   
-  API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutAsync, PATH(String, key), BODY_STRING(String, data))
-  API_CALL_ASYNC(PUT, "v1/kv/{key}", kvPutInDCAsync, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
+  API_CALL_ASYNC(HTTP_PUT, "v1/kv/{key}", kvPutAsync, PATH(String, key), BODY_STRING(String, data))
+  API_CALL_ASYNC(HTTP_PUT, "v1/kv/{key}", kvPutInDCAsync, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
   
-  API_CALL_ASYNC(DELETE, "v1/kv/{key}", kvDeleteAsync, PATH(String, key))
-  API_CALL_ASYNC(DELETE, "v1/kv/{key}", kvDeleteInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
+  API_CALL_ASYNC(HTTP_DELETE, "v1/kv/{key}", kvDeleteAsync, PATH(String, key))
+  API_CALL_ASYNC(HTTP_DELETE, "v1/kv/{key}", kvDeleteInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
   
   
   //---------------------------------------------------------------------------------------------------
   // AgentChecks
   
-  API_CALL(GET, "v1/agent/checks", agentGetChecks)
-  API_CALL(PUT, "v1/agent/check/register", agentCheckRegister, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
-  API_CALL(PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregister, PATH(String, checkId))
+  API_CALL(HTTP_GET, "v1/agent/checks", agentGetChecks)
+  API_CALL(HTTP_PUT, "v1/agent/check/register", agentCheckRegister, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL(HTTP_PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregister, PATH(String, checkId))
   
-  API_CALL_ASYNC(GET, "v1/agent/checks", agentGetChecksAsync)
-  API_CALL_ASYNC(PUT, "v1/agent/check/register", agentCheckRegisterAsync, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
-  API_CALL_ASYNC(PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregisterAsync, PATH(String, checkId))
+  API_CALL_ASYNC(HTTP_GET, "v1/agent/checks", agentGetChecksAsync)
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/register", agentCheckRegisterAsync, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregisterAsync, PATH(String, checkId))
   
   //---------------------------------------------------------------------------------------------------
   // AgentService
   
-  API_CALL(GET, "v1/agent/services", agentGetServices)
-  API_CALL(PUT, "v1/agent/service/register", agentServiceRegister, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
-  API_CALL(PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregister, PATH(String, serviceId))
+  API_CALL(HTTP_GET, "v1/agent/services", agentGetServices)
+  API_CALL(HTTP_PUT, "v1/agent/service/register", agentServiceRegister, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
+  API_CALL(HTTP_PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregister, PATH(String, serviceId))
   
-  API_CALL_ASYNC(GET, "v1/agent/services", agentGetServicesAsync)
-  API_CALL_ASYNC(PUT, "v1/agent/service/register", agentServiceRegisterAsync, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
-  API_CALL_ASYNC(PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregisterAsync, PATH(String, serviceId))
+  API_CALL_ASYNC(HTTP_GET, "v1/agent/services", agentGetServicesAsync)
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/service/register", agentServiceRegisterAsync, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregisterAsync, PATH(String, serviceId))
   
   
 #include OATPP_CODEGEN_END(ApiClient)
