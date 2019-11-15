@@ -28,13 +28,13 @@
 
 namespace oatpp { namespace consul {
   
-Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor) {
+Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor, const bool serializerincludeNullFields, const bool deserializerAllowUnknownFields ) {
   
   auto serializerConfig = oatpp::parser::json::mapping::Serializer::Config::createShared();
-  serializerConfig->includeNullFields = false;
+  serializerConfig->includeNullFields = serializerincludeNullFields;
   
   auto deserializerConfig = oatpp::parser::json::mapping::Deserializer::Config::createShared();
-  deserializerConfig->allowUnknownFields = false;
+  deserializerConfig->allowUnknownFields = deserializerAllowUnknownFields;
   
   m_objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared(serializerConfig, deserializerConfig);
   

@@ -80,11 +80,11 @@ private:
   std::shared_ptr<oatpp::data::mapping::ObjectMapper> m_objectMapper;
   std::shared_ptr<rest::Client> m_restClient;
 public:
-  Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor);
+  Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor, const bool serializerincludeNullFields = false, const bool deserializerAllowUnknownFields = false);
 public:
   
-  static std::shared_ptr<Client> createShared(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor) {
-    return std::make_shared<Client>(requestExecutor);
+  static std::shared_ptr<Client> createShared(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor, const bool serializerincludeNullFields = false, const bool deserializerAllowUnknownFields = false) {
+    return std::make_shared<Client>(requestExecutor,serializerincludeNullFields, deserializerAllowUnknownFields);
   }
   
   /**
@@ -95,6 +95,13 @@ public:
     return m_restClient;
   }
   
+  /**
+  *  Get object mapper initialized in the client instance.
+  */
+  std::shared_ptr<oatpp::data::mapping::ObjectMapper> ObjectMapper() const { 
+	  return m_objectMapper; 
+  }
+
   /**
    *  Get metadata for key containing base64 encoded value along with other fields
    *  @throws - &l:Client::Error;.

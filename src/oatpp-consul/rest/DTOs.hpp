@@ -269,7 +269,28 @@ class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
   DTO_FIELD(Boolean, enableTagOverride, "EnableTagOverride");
   
 };
-  
+
+
+class SessionPayload : public oatpp::data::mapping::type::Object {
+
+
+
+	DTO_INIT(SessionPayload, Object)
+
+	
+	DTO_FIELD(Int64, createIndex, "CreateIndex");
+	DTO_FIELD(String, id, "ID");
+	DTO_FIELD(Int64, lockDelay, "LockDelay");
+	DTO_FIELD(String, name, "Name");
+	DTO_FIELD(String, node, "Node");
+	DTO_FIELD(List<String>::ObjectWrapper, cheks, "Checks");
+	DTO_FIELD(String, behavior, "Behavior");
+	DTO_FIELD(String, ttl, "TTL");
+
+
+};
+
+
 }}}
 
 /* End DTO codegen */

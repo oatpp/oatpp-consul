@@ -58,6 +58,7 @@ public:
   API_CALL(HTTP_GET, "v1/kv/{key}?raw&dc={dc}", kvGetRawInDC, PATH(String, key), PATH(String, datacenter, "dc"))
 
   API_CALL(HTTP_PUT, "v1/kv/{key}", kvPut, PATH(String, key), BODY_STRING(String, data))
+  API_CALL(HTTP_PUT, "v1/kv/{key}", kvPutAcquire, PATH(String, key), BODY_STRING(String, data), QUERY(String, acquire, "acquire"))
   API_CALL(HTTP_PUT, "v1/kv/{key}", kvPutInDC, PATH(String, key), BODY_STRING(String, data), QUERY(String, datacenter, "dc"))
   
   API_CALL(HTTP_DELETE, "v1/kv/{key}", kvDelete, PATH(String, key))
@@ -74,6 +75,13 @@ public:
   
   API_CALL_ASYNC(HTTP_DELETE, "v1/kv/{key}", kvDeleteAsync, PATH(String, key))
   API_CALL_ASYNC(HTTP_DELETE, "v1/kv/{key}", kvDeleteInDCAsync, PATH(String, key), QUERY(String, datacenter, "dc"))
+  
+  //---------------------------------------------------------------------------------------------------
+  // Session
+  
+  API_CALL(HTTP_PUT, "v1/session/create", sessionCreate, BODY_DTO(SessionPayload::ObjectWrapper, payload))
+  API_CALL(HTTP_PUT, "v1/session/renew/{uuid}", sessionRenew, PATH(String, uuid))
+  API_CALL(HTTP_PUT, "v1/session/destroy/{uuid}", sessionDestroy, PATH(String, uuid))
   
   
   //---------------------------------------------------------------------------------------------------
