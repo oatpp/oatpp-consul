@@ -286,6 +286,46 @@ class SessionPayload : public oatpp::data::mapping::type::Object {
   DTO_FIELD(String, ttl, "TTL");
 };
 
+class ServiceAddressPayload : public oatpp::data::mapping::type::Object {
+  DTO_INIT(ServiceAddressPayload, Object)
+  DTO_FIELD(String, address, "Address");
+  DTO_FIELD(Int32, port, "Port");
+};
+
+class WeightsPayload : public oatpp::data::mapping::type::Object {
+  DTO_INIT(WeightsPayload, Object)
+  DTO_FIELD(Int32, passing, "Passing");
+  DTO_FIELD(Int32, warning, "Warning");
+};
+
+/**
+ * DTO Object representing Consul Catalog Service.<br>
+ * For more information see [Consul Agent Register Service](https://www.consul.io/api/catalog.html).
+ */
+class CatalogServicePayload : public oatpp::data::mapping::type::Object {
+  DTO_INIT(CatalogServicePayload, Object)
+ 	DTO_FIELD(String, id, "ID");
+	DTO_FIELD(String, node, "Node");
+	DTO_FIELD(String, address, "Address");
+	DTO_FIELD(String, datacenter, "Datacenter");
+	DTO_FIELD(Fields<String>::ObjectWrapper, taggedAddresses, "TaggedAddresses"); 
+	DTO_FIELD(Fields<String>::ObjectWrapper, nodeMeta, "NodeMeta");
+	DTO_FIELD(String, serviceId, "ServiceID");
+	DTO_FIELD(String, serviceName, "ServiceName");
+	DTO_FIELD(String, serviceAddress, "ServiceAddress");
+	//DTO_FIELD(Fields<string>::ServiceAddressPayload::ObjectWrapper, serviceTaggedAddresses, "ServiceTaggedAddresses");
+	DTO_FIELD(List<String>::ObjectWrapper, serviceTags, "ServiceTags");
+	DTO_FIELD(Fields<String>::ObjectWrapper, serviceMeta, "ServiceMeta");
+    DTO_FIELD(Int32, servicePort, "ServicePort");
+	DTO_FIELD(WeightsPayload::ObjectWrapper, serviceWeights, "ServiceWeights");
+	DTO_FIELD(Boolean, sServiceEnableTagOverride, "ServiceEnableTagOverride");
+	//ServiceProxy             *AgentServiceConnectProxyConfig
+    DTO_FIELD(Int64, createIndex, "CreateIndex");
+  
+	//Checks                   HealthChecks
+	//ModifyIndex              uint64
+
+};
 
 }}}
 

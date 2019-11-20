@@ -83,7 +83,10 @@ public:
   API_CALL(HTTP_PUT, "v1/session/renew/{uuid}", sessionRenew, PATH(String, uuid))
   API_CALL(HTTP_PUT, "v1/session/destroy/{uuid}", sessionDestroy, PATH(String, uuid))
   
-  
+  //---------------------------------------------------------------------------------------------------
+  // Catalog
+  API_CALL(HTTP_GET, "v1/catalog/service/{serviceName}", catalogServiceNodes, PATH(String, serviceName))
+
   //---------------------------------------------------------------------------------------------------
   // AgentChecks
   
