@@ -272,55 +272,174 @@ class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
 
 /**
  * DTO Object representing Consul Agent Session.<br>
- * For more information see [Consul Agent Register Service](https://www.consul.io/api/session.html).
+ * For more information see [Consul Session HTTP Endpoint](https://www.consul.io/api/session.html).
  */
 class SessionPayload : public oatpp::data::mapping::type::Object {
+
   DTO_INIT(SessionPayload, Object)
+
+  /**
+   * Internal index value that represents when the entry was created.
+   */
   DTO_FIELD(Int64, createIndex, "CreateIndex");
+
+  /**
+   * id.
+   */
   DTO_FIELD(String, id, "ID");
+
+  /**
+   * The duration for the lock delay. This must be greater than 0
+   */
   DTO_FIELD(Int64, lockDelay, "LockDelay");
-  DTO_FIELD(String, name, "Name");
+
+  /**
+   * The name of the node. This must refer to a node that is already registered.
+   */
   DTO_FIELD(String, node, "Node");
+
+  /**
+   * A human-readable name for the session.
+   */
+  DTO_FIELD(String, name, "Name");
+
+  /**
+   * A list of associated health check IDs (commonly CheckID in API responses).
+   */
   DTO_FIELD(List<String>::ObjectWrapper, cheks, "Checks");
+
+  /**
+   * Controls the behavior to take when a session is invalidated. Valid values are: <br>
+   * <ul>
+   *    <li>release - causes any locks that are held to be released</li>
+   *    <li>delete - causes any locks that are held to be deleted</li>
+   * </ul>
+   */
   DTO_FIELD(String, behavior, "Behavior");
+
+  /**
+   * The number of seconds (between 10s and 86400s).
+   */
   DTO_FIELD(String, ttl, "TTL");
+
 };
 
+/**
+ * The structure representing LAN and WAN addresses for the service instance.
+ */
 class ServiceAddressPayload : public oatpp::data::mapping::type::Object {
+
   DTO_INIT(ServiceAddressPayload, Object)
+
+  /**
+   * IP address.
+   */
   DTO_FIELD(String, address, "Address");
+
+  /**
+   * Port.
+   */
   DTO_FIELD(Int32, port, "Port");
+
 };
 
 class WeightsPayload : public oatpp::data::mapping::type::Object {
+
   DTO_INIT(WeightsPayload, Object)
+
   DTO_FIELD(Int32, passing, "Passing");
   DTO_FIELD(Int32, warning, "Warning");
+
 };
 
 /**
  * DTO Object representing Consul Catalog Service.<br>
- * For more information see [Consul Agent Register Service](https://www.consul.io/api/catalog.html).
+ * For more information see [Consul Catalog HTTP API](https://www.consul.io/api/catalog.html).
  */
 class CatalogServicePayload : public oatpp::data::mapping::type::Object {
+
   DTO_INIT(CatalogServicePayload, Object)
+
+  /**
+   * ID.
+   */
  	DTO_FIELD(String, id, "ID");
+
+ 	/**
+ 	 * The name of the Consul node on which the service is registered.
+ 	 */
 	DTO_FIELD(String, node, "Node");
+
+	/**
+	 * The IP address of the Consul node on which the service is registered.
+	 */
 	DTO_FIELD(String, address, "Address");
+
+	/**
+	 * The data center of the Consul node on which the service is registered.
+	 */
 	DTO_FIELD(String, datacenter, "Datacenter");
-	DTO_FIELD(Fields<String>::ObjectWrapper, taggedAddresses, "TaggedAddresses"); 
+
+	/**
+	 * The list of explicit LAN and WAN IP addresses for the agent.
+	 */
+	DTO_FIELD(Fields<String>::ObjectWrapper, taggedAddresses, "TaggedAddresses");
+
+	/**
+	 * The list of user-defined metadata key/value pairs for the node.
+	 */
 	DTO_FIELD(Fields<String>::ObjectWrapper, nodeMeta, "NodeMeta");
+
+	/**
+	 * The unique service instance identifier
+	 */
 	DTO_FIELD(String, serviceId, "ServiceID");
+
+  /**
+   * The name of the service
+   */
 	DTO_FIELD(String, serviceName, "ServiceName");
+
+	/**
+	 * The IP address of the service host — if empty, node address should be used
+	 */
 	DTO_FIELD(String, serviceAddress, "ServiceAddress");
-	//DTO_FIELD(Fields<string>::ServiceAddressPayload::ObjectWrapper, serviceTaggedAddresses, "ServiceTaggedAddresses");
+
+	/**
+	 * The map of explicit LAN and WAN addresses for the service instance. &l:ServiceAddressPayload;.
+	 */
+	DTO_FIELD(Fields<ServiceAddressPayload::ObjectWrapper>::ObjectWrapper, serviceTaggedAddresses, "ServiceTaggedAddresses");
+
+	/**
+	 * The list of tags for the service.
+	 */
 	DTO_FIELD(List<String>::ObjectWrapper, serviceTags, "ServiceTags");
+
+	/**
+	 * The list of user-defined metadata key/value pairs for the service.
+	 */
 	DTO_FIELD(Fields<String>::ObjectWrapper, serviceMeta, "ServiceMeta");
-    DTO_FIELD(Int32, servicePort, "ServicePort");
+
+	/**
+	 * The the port number of the service.
+	 */
+	DTO_FIELD(Int32, servicePort, "ServicePort");
+
+	/**
+	 * ServiceWeights.
+	 */
 	DTO_FIELD(WeightsPayload::ObjectWrapper, serviceWeights, "ServiceWeights");
-	DTO_FIELD(Boolean, sServiceEnableTagOverride, "ServiceEnableTagOverride");
+
+	/**
+	 * Indicates whether service tags can be overridden on this service.
+	 */
+	DTO_FIELD(Boolean, serviceEnableTagOverride, "ServiceEnableTagOverride");
 	//ServiceProxy             *AgentServiceConnectProxyConfig
-    DTO_FIELD(Int64, createIndex, "CreateIndex");
+
+  /**
+   * Internal index value that represents when the entry was created.
+   */
+	DTO_FIELD(Int64, createIndex, "CreateIndex");
   
 	//Checks                   HealthChecks
 	//ModifyIndex              uint64
