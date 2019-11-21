@@ -435,13 +435,14 @@ class CatalogServicePayload : public oatpp::data::mapping::type::Object {
    * Indicates whether service tags can be overridden on this service.
    */
   DTO_FIELD(Boolean, serviceEnableTagOverride, "ServiceEnableTagOverride");
-  //ServiceProxy             *AgentServiceConnectProxyConfig
-
+  
   /**
    * Internal index value that represents when the entry was created.
    */
   DTO_FIELD(Int64, createIndex, "CreateIndex");
 
+  // To be added if/when needed
+  //ServiceProxy             *AgentServiceConnectProxyConfig
   //Checks                   HealthChecks
   //ModifyIndex              uint64
 
