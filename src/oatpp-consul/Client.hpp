@@ -37,6 +37,19 @@ class Client {
 private:
   template<class T>
   using List = oatpp::data::mapping::type::List<T>;
+
+public:
+
+  /**
+   * Convenience typedef for &id:oatpp::web::client::RequestExecutor;.
+   */
+  typedef oatpp::web::client::RequestExecutor RequestExecutor;
+
+  /**
+   * Convenience typedef for &id:oatpp::data::mapping::ObjectMapper;.
+   */
+  typedef oatpp::data::mapping::ObjectMapper ObjectMapper;
+
 public:
 
   /**
@@ -77,14 +90,17 @@ public:
   };
 
 private:
-  std::shared_ptr<oatpp::data::mapping::ObjectMapper> m_objectMapper;
+  std::shared_ptr<ObjectMapper> m_objectMapper;
   std::shared_ptr<rest::Client> m_restClient;
+private:
+  static std::shared_ptr<ObjectMapper> createDefaultObjectMapper();
 public:
-  Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor);
+  Client(const std::shared_ptr<RequestExecutor>& requestExecutor, const std::shared_ptr<ObjectMapper>& objectMapper = createDefaultObjectMapper());
 public:
   
-  static std::shared_ptr<Client> createShared(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor) {
-    return std::make_shared<Client>(requestExecutor);
+  static std::shared_ptr<Client> createShared(const std::shared_ptr<RequestExecutor>& requestExecutor,
+                                              const std::shared_ptr<ObjectMapper>& objectMapper = createDefaultObjectMapper()) {
+    return std::make_shared<Client>(requestExecutor, objectMapper);
   }
   
   /**
@@ -95,6 +111,11 @@ public:
     return m_restClient;
   }
   
+  /**
+   *  Get object mapper initialized in the client instance.
+   */
+  std::shared_ptr<oatpp::data::mapping::ObjectMapper> getObjectMapper() const;
+
   /**
    *  Get metadata for key containing base64 encoded value along with other fields
    *  @throws - &l:Client::Error;.

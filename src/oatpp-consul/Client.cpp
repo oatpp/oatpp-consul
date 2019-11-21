@@ -28,18 +28,24 @@
 
 namespace oatpp { namespace consul {
   
-Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor) {
-  
+Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor, const std::shared_ptr<ObjectMapper>& objectMapper)
+  : m_restClient(rest::Client::createShared(requestExecutor, objectMapper))
+{}
+
+std::shared_ptr<Client::ObjectMapper> Client::createDefaultObjectMapper() {
+
   auto serializerConfig = oatpp::parser::json::mapping::Serializer::Config::createShared();
   serializerConfig->includeNullFields = false;
-  
+
   auto deserializerConfig = oatpp::parser::json::mapping::Deserializer::Config::createShared();
-  deserializerConfig->allowUnknownFields = false;
-  
-  m_objectMapper = oatpp::parser::json::mapping::ObjectMapper::createShared(serializerConfig, deserializerConfig);
-  
-  m_restClient = rest::Client::createShared(requestExecutor, m_objectMapper);
-  
+  deserializerConfig->allowUnknownFields = true;
+
+  return oatpp::parser::json::mapping::ObjectMapper::createShared(serializerConfig, deserializerConfig);
+
+}
+
+std::shared_ptr<oatpp::data::mapping::ObjectMapper> Client::getObjectMapper() const {
+  return m_objectMapper;
 }
   
 rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) const {
