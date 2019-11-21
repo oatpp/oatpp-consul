@@ -352,6 +352,7 @@ DTO_INIT(WeightsPayload, Object)
 
 };
 
+
 /**
  * DTO Object representing Consul Catalog Service.<br>
  * For more information see [Consul Catalog HTTP API](https://www.consul.io/api/catalog.html).
