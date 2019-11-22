@@ -30,6 +30,7 @@ namespace oatpp { namespace consul {
   
 Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& requestExecutor, const std::shared_ptr<ObjectMapper>& objectMapper)
   : m_restClient(rest::Client::createShared(requestExecutor, objectMapper))
+  , m_objectMapper(objectMapper)
 {}
 
 std::shared_ptr<Client::ObjectMapper> Client::createDefaultObjectMapper() {
@@ -39,7 +40,7 @@ std::shared_ptr<Client::ObjectMapper> Client::createDefaultObjectMapper() {
 
   auto deserializerConfig = oatpp::parser::json::mapping::Deserializer::Config::createShared();
   deserializerConfig->allowUnknownFields = true;
-
+  
   return oatpp::parser::json::mapping::ObjectMapper::createShared(serializerConfig, deserializerConfig);
 
 }
