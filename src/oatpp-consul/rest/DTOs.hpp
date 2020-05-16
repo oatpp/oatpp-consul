@@ -26,9 +26,9 @@
 #define oatpp_consul_rest_DTOs_hpp
 
 #include "oatpp/encoding/Base64.hpp"
-
-#include "oatpp/core/data/mapping/type/Object.hpp"
 #include "oatpp/core/macro/codegen.hpp"
+
+#include "oatpp/core/Types.hpp"
 
 /* Begin DTO codegen */
 #include OATPP_CODEGEN_BEGIN(DTO)
@@ -39,7 +39,7 @@ namespace oatpp { namespace consul { namespace rest {
  * DTO object representing Consul KV Metadata Response. <br>
  * For More info see [Consul KV Store Endpoints](https://www.consul.io/api/kv.html).
  */
-class KVMetadata : public oatpp::data::mapping::type::Object {
+class KVMetadata : public oatpp::Object {
   
   DTO_INIT(KVMetadata, Object)
 
@@ -105,7 +105,7 @@ public:
  * DTO Object representing Consul Agent Register Check.<br>
  * For more information see [Consul Agent Register Check](https://www.consul.io/api/agent/check.html#register-check).
  */
-class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
+class AgentCheckRegisterPayload : public oatpp::Object {
   
   DTO_INIT(AgentCheckRegisterPayload, Object)
 
@@ -137,7 +137,7 @@ class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
   /**
    * Command arguments to run to update the status of the check.
    */
-  DTO_FIELD(List<String>::ObjectWrapper, args, "Args");
+  DTO_FIELD(List<String>, args, "Args");
 
   /**
    * Specifies that the check is a Docker check.
@@ -168,7 +168,7 @@ class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
   /**
    * Set of headers that should be set for HTTP checks.
    */
-  DTO_FIELD(Fields<List<String>::ObjectWrapper>::ObjectWrapper, header, "Header");
+  DTO_FIELD(Fields<List<String>>, header, "Header");
 
   /**
    * Timeout for outgoing connections
@@ -206,7 +206,7 @@ class AgentCheckRegisterPayload : public oatpp::data::mapping::type::Object {
  * DTO Object representing Consul Agent Register Service.<br>
  * For more information see [Consul Agent Register Service](https://www.consul.io/api/agent/service.html#register-service).
  */
-class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
+class AgentServiceRegisterPayload : public oatpp::Object {
   
   DTO_INIT(AgentServiceRegisterPayload, Object)
 
@@ -223,7 +223,7 @@ class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
   /**
    * List of tags to assign to the service.
    */
-  DTO_FIELD(List<String>::ObjectWrapper, tags, "Tags");
+  DTO_FIELD(List<String>, tags, "Tags");
 
   /**
    * Specifies the address of the service. If not provided, the agent's address is used as the address for the service during DNS queries.
@@ -233,7 +233,7 @@ class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
   /**
    * Specifies arbitrary KV metadata linked to the service instance.
    */
-  DTO_FIELD(Fields<String>::ObjectWrapper, meta, "Meta");
+  DTO_FIELD(Fields<String>, meta, "Meta");
 
   /**
    * Port of the service.
@@ -251,17 +251,17 @@ class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
    */
   DTO_FIELD(String, proxyDestination, "ProxyDestination");
   
-  //DTO_FIELD(Connect::ObjectWrapper, connect, "Connect")
+  //DTO_FIELD(Connect, connect, "Connect")
 
   /**
    * &l:AgentCheckRegisterPayload;.
    */
-  DTO_FIELD(AgentCheckRegisterPayload::ObjectWrapper, check, "Check");
+  DTO_FIELD(AgentCheckRegisterPayload, check, "Check");
 
   /**
    * List of &l:AgentCheckRegisterPayload;.
    */
-  DTO_FIELD(List<AgentCheckRegisterPayload::ObjectWrapper>::ObjectWrapper, checks, "Checks");
+  DTO_FIELD(List<AgentCheckRegisterPayload>, checks, "Checks");
 
   /**
    * Specifies to disable the anti-entropy feature for this service's tags.
@@ -274,7 +274,7 @@ class AgentServiceRegisterPayload : public oatpp::data::mapping::type::Object {
  * DTO Object representing Consul Agent Session.<br>
  * For more information see [Consul Session HTTP Endpoint](https://www.consul.io/api/session.html).
  */
-class SessionPayload : public oatpp::data::mapping::type::Object {
+class SessionPayload : public oatpp::Object {
 
   DTO_INIT(SessionPayload, Object)
 
@@ -306,7 +306,7 @@ class SessionPayload : public oatpp::data::mapping::type::Object {
   /**
    * A list of associated health check IDs (commonly CheckID in API responses).
    */
-  DTO_FIELD(List<String>::ObjectWrapper, cheks, "Checks");
+  DTO_FIELD(List<String>, cheks, "Checks");
 
   /**
    * Controls the behavior to take when a session is invalidated. Valid values are: <br>
@@ -327,7 +327,7 @@ class SessionPayload : public oatpp::data::mapping::type::Object {
 /**
  * The structure representing LAN and WAN addresses for the service instance.
  */
-class ServiceAddressPayload : public oatpp::data::mapping::type::Object {
+class ServiceAddressPayload : public oatpp::Object {
 
   DTO_INIT(ServiceAddressPayload, Object)
 
@@ -343,7 +343,7 @@ class ServiceAddressPayload : public oatpp::data::mapping::type::Object {
 
 };
 
-class WeightsPayload : public oatpp::data::mapping::type::Object {
+class WeightsPayload : public oatpp::Object {
 
 DTO_INIT(WeightsPayload, Object)
 
@@ -357,7 +357,7 @@ DTO_INIT(WeightsPayload, Object)
  * DTO Object representing Consul Catalog Service.<br>
  * For more information see [Consul Catalog HTTP API](https://www.consul.io/api/catalog.html).
  */
-class CatalogServicePayload : public oatpp::data::mapping::type::Object {
+class CatalogServicePayload : public oatpp::Object {
 
   DTO_INIT(CatalogServicePayload, Object)
 
@@ -384,12 +384,12 @@ class CatalogServicePayload : public oatpp::data::mapping::type::Object {
   /**
    * The list of explicit LAN and WAN IP addresses for the agent.
    */
-  DTO_FIELD(Fields<String>::ObjectWrapper, taggedAddresses, "TaggedAddresses");
+  DTO_FIELD(Fields<String>, taggedAddresses, "TaggedAddresses");
 
   /**
    * The list of user-defined metadata key/value pairs for the node.
    */
-  DTO_FIELD(Fields<String>::ObjectWrapper, nodeMeta, "NodeMeta");
+  DTO_FIELD(Fields<String>, nodeMeta, "NodeMeta");
 
   /**
    * The unique service instance identifier
@@ -409,17 +409,17 @@ class CatalogServicePayload : public oatpp::data::mapping::type::Object {
   /**
    * The map of explicit LAN and WAN addresses for the service instance. &l:ServiceAddressPayload;.
    */
-  DTO_FIELD(Fields<ServiceAddressPayload::ObjectWrapper>::ObjectWrapper, serviceTaggedAddresses, "ServiceTaggedAddresses");
+  DTO_FIELD(Fields<ServiceAddressPayload>, serviceTaggedAddresses, "ServiceTaggedAddresses");
 
   /**
    * The list of tags for the service.
    */
-  DTO_FIELD(List<String>::ObjectWrapper, serviceTags, "ServiceTags");
+  DTO_FIELD(List<String>, serviceTags, "ServiceTags");
 
   /**
    * The list of user-defined metadata key/value pairs for the service.
    */
-  DTO_FIELD(Fields<String>::ObjectWrapper, serviceMeta, "ServiceMeta");
+  DTO_FIELD(Fields<String>, serviceMeta, "ServiceMeta");
 
   /**
    * The the port number of the service.
@@ -429,7 +429,7 @@ class CatalogServicePayload : public oatpp::data::mapping::type::Object {
   /**
    * ServiceWeights.
    */
-  DTO_FIELD(WeightsPayload::ObjectWrapper, serviceWeights, "ServiceWeights");
+  DTO_FIELD(WeightsPayload, serviceWeights, "ServiceWeights");
 
   /**
    * Indicates whether service tags can be overridden on this service.

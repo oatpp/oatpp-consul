@@ -79,7 +79,7 @@ public:
   //---------------------------------------------------------------------------------------------------
   // Session
   
-  API_CALL(HTTP_PUT, "v1/session/create", sessionCreate, BODY_DTO(SessionPayload::ObjectWrapper, payload))
+  API_CALL(HTTP_PUT, "v1/session/create", sessionCreate, BODY_DTO(SessionPayload, payload))
   API_CALL(HTTP_PUT, "v1/session/renew/{uuid}", sessionRenew, PATH(String, uuid))
   API_CALL(HTTP_PUT, "v1/session/destroy/{uuid}", sessionDestroy, PATH(String, uuid))
   
@@ -92,22 +92,22 @@ public:
   // AgentChecks
   
   API_CALL(HTTP_GET, "v1/agent/checks", agentGetChecks)
-  API_CALL(HTTP_PUT, "v1/agent/check/register", agentCheckRegister, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL(HTTP_PUT, "v1/agent/check/register", agentCheckRegister, BODY_DTO(AgentCheckRegisterPayload, payload))
   API_CALL(HTTP_PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregister, PATH(String, checkId))
   
   API_CALL_ASYNC(HTTP_GET, "v1/agent/checks", agentGetChecksAsync)
-  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/register", agentCheckRegisterAsync, BODY_DTO(AgentCheckRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/register", agentCheckRegisterAsync, BODY_DTO(AgentCheckRegisterPayload, payload))
   API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregisterAsync, PATH(String, checkId))
   
   //---------------------------------------------------------------------------------------------------
   // AgentService
   
   API_CALL(HTTP_GET, "v1/agent/services", agentGetServices)
-  API_CALL(HTTP_PUT, "v1/agent/service/register", agentServiceRegister, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
+  API_CALL(HTTP_PUT, "v1/agent/service/register", agentServiceRegister, BODY_DTO(AgentServiceRegisterPayload, payload))
   API_CALL(HTTP_PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregister, PATH(String, serviceId))
   
   API_CALL_ASYNC(HTTP_GET, "v1/agent/services", agentGetServicesAsync)
-  API_CALL_ASYNC(HTTP_PUT, "v1/agent/service/register", agentServiceRegisterAsync, BODY_DTO(AgentServiceRegisterPayload::ObjectWrapper, payload))
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/service/register", agentServiceRegisterAsync, BODY_DTO(AgentServiceRegisterPayload, payload))
   API_CALL_ASYNC(HTTP_PUT, "v1/agent/service/deregister/{serviceId}", agentServiceDeregisterAsync, PATH(String, serviceId))
   
   

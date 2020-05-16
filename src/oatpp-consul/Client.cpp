@@ -53,8 +53,8 @@ rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) 
   auto response = m_restClient->kvGet(key);
   if(response->getStatusCode() == 200){
     auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper.get());
-    if(list && list->count() > 0) {
-      return list->getFirst();
+    if(list && list->size() > 0) {
+      return list->front();
     }
   }
   throw Error("[oatpp::consul::client::kvGetMetadata()]: Error", response->getStatusCode());
@@ -64,8 +64,8 @@ rest::KVMetadata::ObjectWrapper Client::kvGetMetadataInDC(const oatpp::String& k
   auto response = m_restClient->kvGetInDC(key, datacenter);
   if(response->getStatusCode() == 200){
     auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper.get());
-    if(list && list->count() > 0) {
-      return list->getFirst();
+    if(list && list->size() > 0) {
+      return list->front();
     }
   }
   throw Error("[oatpp::consul::client::kvGetMetadataInDC()]: Error", response->getStatusCode());
