@@ -48,11 +48,11 @@ std::shared_ptr<Client::ObjectMapper> Client::createDefaultObjectMapper() {
 std::shared_ptr<oatpp::data::mapping::ObjectMapper> Client::getObjectMapper() const {
   return m_objectMapper;
 }
-  
-rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) const {
+
+oatpp::Object<rest::KVMetadata> Client::kvGetMetadata(const oatpp::String& key) const {
   auto response = m_restClient->kvGet(key);
   if(response->getStatusCode() == 200){
-    auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper.get());
+    auto list = response->readBodyToDto<List<Object<rest::KVMetadata>>>(m_objectMapper.get());
     if(list && list->size() > 0) {
       return list->front();
     }
@@ -60,10 +60,10 @@ rest::KVMetadata::ObjectWrapper Client::kvGetMetadata(const oatpp::String& key) 
   throw Error("[oatpp::consul::client::kvGetMetadata()]: Error", response->getStatusCode());
 }
 
-rest::KVMetadata::ObjectWrapper Client::kvGetMetadataInDC(const oatpp::String& key, const oatpp::String& datacenter) const {
+oatpp::Object<rest::KVMetadata> Client::kvGetMetadataInDC(const oatpp::String& key, const oatpp::String& datacenter) const {
   auto response = m_restClient->kvGetInDC(key, datacenter);
   if(response->getStatusCode() == 200){
-    auto list = response->readBodyToDto<List<rest::KVMetadata::ObjectWrapper>>(m_objectMapper.get());
+    auto list = response->readBodyToDto<List<Object<rest::KVMetadata>>>(m_objectMapper.get());
     if(list && list->size() > 0) {
       return list->front();
     }

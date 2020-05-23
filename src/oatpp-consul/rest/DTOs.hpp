@@ -39,9 +39,9 @@ namespace oatpp { namespace consul { namespace rest {
  * DTO object representing Consul KV Metadata Response. <br>
  * For More info see [Consul KV Store Endpoints](https://www.consul.io/api/kv.html).
  */
-class KVMetadata : public oatpp::Object {
+class KVMetadata : public oatpp::DTO {
   
-  DTO_INIT(KVMetadata, Object)
+  DTO_INIT(KVMetadata, DTO)
 
   /**
    * Full path of the entry.
@@ -105,9 +105,9 @@ public:
  * DTO Object representing Consul Agent Register Check.<br>
  * For more information see [Consul Agent Register Check](https://www.consul.io/api/agent/check.html#register-check).
  */
-class AgentCheckRegisterPayload : public oatpp::Object {
+class AgentCheckRegisterPayload : public oatpp::DTO {
   
-  DTO_INIT(AgentCheckRegisterPayload, Object)
+  DTO_INIT(AgentCheckRegisterPayload, DTO)
 
   /**
    * Name of the check.
@@ -206,9 +206,9 @@ class AgentCheckRegisterPayload : public oatpp::Object {
  * DTO Object representing Consul Agent Register Service.<br>
  * For more information see [Consul Agent Register Service](https://www.consul.io/api/agent/service.html#register-service).
  */
-class AgentServiceRegisterPayload : public oatpp::Object {
+class AgentServiceRegisterPayload : public oatpp::DTO {
   
-  DTO_INIT(AgentServiceRegisterPayload, Object)
+  DTO_INIT(AgentServiceRegisterPayload, DTO)
 
   /**
    * Logical name of the service.
@@ -256,12 +256,12 @@ class AgentServiceRegisterPayload : public oatpp::Object {
   /**
    * &l:AgentCheckRegisterPayload;.
    */
-  DTO_FIELD(AgentCheckRegisterPayload, check, "Check");
+  DTO_FIELD(Object<AgentCheckRegisterPayload>, check, "Check");
 
   /**
    * List of &l:AgentCheckRegisterPayload;.
    */
-  DTO_FIELD(List<AgentCheckRegisterPayload>, checks, "Checks");
+  DTO_FIELD(List<Object<AgentCheckRegisterPayload>>, checks, "Checks");
 
   /**
    * Specifies to disable the anti-entropy feature for this service's tags.
@@ -274,9 +274,9 @@ class AgentServiceRegisterPayload : public oatpp::Object {
  * DTO Object representing Consul Agent Session.<br>
  * For more information see [Consul Session HTTP Endpoint](https://www.consul.io/api/session.html).
  */
-class SessionPayload : public oatpp::Object {
+class SessionPayload : public oatpp::DTO {
 
-  DTO_INIT(SessionPayload, Object)
+  DTO_INIT(SessionPayload, DTO)
 
   /**
    * Internal index value that represents when the entry was created.
@@ -327,9 +327,9 @@ class SessionPayload : public oatpp::Object {
 /**
  * The structure representing LAN and WAN addresses for the service instance.
  */
-class ServiceAddressPayload : public oatpp::Object {
+class ServiceAddressPayload : public oatpp::DTO {
 
-  DTO_INIT(ServiceAddressPayload, Object)
+  DTO_INIT(ServiceAddressPayload, DTO)
 
   /**
    * IP address.
@@ -343,9 +343,9 @@ class ServiceAddressPayload : public oatpp::Object {
 
 };
 
-class WeightsPayload : public oatpp::Object {
+class WeightsPayload : public oatpp::DTO {
 
-DTO_INIT(WeightsPayload, Object)
+DTO_INIT(WeightsPayload, DTO)
 
   DTO_FIELD(Int32, passing, "Passing");
   DTO_FIELD(Int32, warning, "Warning");
@@ -357,9 +357,9 @@ DTO_INIT(WeightsPayload, Object)
  * DTO Object representing Consul Catalog Service.<br>
  * For more information see [Consul Catalog HTTP API](https://www.consul.io/api/catalog.html).
  */
-class CatalogServicePayload : public oatpp::Object {
+class CatalogServicePayload : public oatpp::DTO {
 
-  DTO_INIT(CatalogServicePayload, Object)
+  DTO_INIT(CatalogServicePayload, DTO)
 
   /**
    * ID.
@@ -409,7 +409,7 @@ class CatalogServicePayload : public oatpp::Object {
   /**
    * The map of explicit LAN and WAN addresses for the service instance. &l:ServiceAddressPayload;.
    */
-  DTO_FIELD(Fields<ServiceAddressPayload>, serviceTaggedAddresses, "ServiceTaggedAddresses");
+  DTO_FIELD(Fields<Object<ServiceAddressPayload>>, serviceTaggedAddresses, "ServiceTaggedAddresses");
 
   /**
    * The list of tags for the service.
@@ -429,7 +429,7 @@ class CatalogServicePayload : public oatpp::Object {
   /**
    * ServiceWeights.
    */
-  DTO_FIELD(WeightsPayload, serviceWeights, "ServiceWeights");
+  DTO_FIELD(Object<WeightsPayload>, serviceWeights, "ServiceWeights");
 
   /**
    * Indicates whether service tags can be overridden on this service.

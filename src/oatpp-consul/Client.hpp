@@ -114,19 +114,19 @@ public:
   /**
    *  Get object mapper initialized in the client instance.
    */
-  std::shared_ptr<oatpp::data::mapping::ObjectMapper> getObjectMapper() const;
+  std::shared_ptr<data::mapping::ObjectMapper> getObjectMapper() const;
 
   /**
    *  Get metadata for key containing base64 encoded value along with other fields
    *  @throws - &l:Client::Error;.
    */
-  rest::KVMetadata::ObjectWrapper kvGetMetadata(const oatpp::String& key) const;
+  oatpp::Object<rest::KVMetadata> kvGetMetadata(const oatpp::String& key) const;
   
   /**
    *  Same as kvGetMetadata(key) but for given datacenter (DC)
    *  @throws - &l:Client::Error;.
    */
-  rest::KVMetadata::ObjectWrapper kvGetMetadataInDC(const oatpp::String& key, const oatpp::String& datacenter) const;
+  oatpp::Object<rest::KVMetadata> kvGetMetadataInDC(const oatpp::String& key, const oatpp::String& datacenter) const;
   
   /**
    *  Get value by key
