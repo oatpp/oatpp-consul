@@ -15,7 +15,7 @@ private:
   oatpp::concurrency::SpinLock m_lock;
 public:
 
-  void log(v_int32 priority, const std::string& tag, const std::string& message) override {
+  void log(v_uint32 priority, const std::string& tag, const std::string& message) override {
     std::lock_guard<oatpp::concurrency::SpinLock> lock(m_lock);
     std::cout << tag << ":" << message << "\n";
   }
