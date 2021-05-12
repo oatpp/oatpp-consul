@@ -62,7 +62,7 @@ For full example project see: [oatpp-consul example](https://github.com/oatpp/ex
   auto restClient = client->getRestClient();
   
   auto checkPayload = oatpp::consul::rest::AgentCheckRegisterPayload::createShared();
-  checkPayload->id = "service_check_id";
+  checkPayload->serviceID = "service_check_id";
   checkPayload->name = "service_check_name";
   checkPayload->notes = "Check on the MyService/Health endpoint";
   checkPayload->http = "http://localhost:8000/check/health";
