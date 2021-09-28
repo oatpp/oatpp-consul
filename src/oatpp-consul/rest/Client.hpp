@@ -94,11 +94,19 @@ public:
   API_CALL(HTTP_GET, "v1/agent/checks", agentGetChecks)
   API_CALL(HTTP_PUT, "v1/agent/check/register", agentCheckRegister, BODY_DTO(Object<AgentCheckRegisterPayload>, payload))
   API_CALL(HTTP_PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregister, PATH(String, checkId))
-  
+
+  API_CALL(HTTP_PUT, "v1/agent/check/pass/{checkId}", agentTtlCheckPass, PATH(String, checkId), QUERY(String, note, "note"))
+  API_CALL(HTTP_PUT, "v1/agent/check/warn/{checkId}", agentTtlCheckWarn, PATH(String, checkId), QUERY(String, note, "note"))
+  API_CALL(HTTP_PUT, "v1/agent/check/fail/{checkId}", agentTtlCheckFail, PATH(String, checkId), QUERY(String, note, "note"))
+
   API_CALL_ASYNC(HTTP_GET, "v1/agent/checks", agentGetChecksAsync)
   API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/register", agentCheckRegisterAsync, BODY_DTO(Object<AgentCheckRegisterPayload>, payload))
   API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/deregister/{checkId}", agentCheckDeregisterAsync, PATH(String, checkId))
-  
+
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/pass/{checkId}", agentTtlCheckPassAsync, PATH(String, checkId), QUERY(String, note, "note"))
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/warn/{checkId}", agentTtlCheckWarnAsync, PATH(String, checkId), QUERY(String, note, "note"))
+  API_CALL_ASYNC(HTTP_PUT, "v1/agent/check/fail/{checkId}", agentTtlCheckFailAsync, PATH(String, checkId), QUERY(String, note, "note"))
+
   //---------------------------------------------------------------------------------------------------
   // AgentService
   
