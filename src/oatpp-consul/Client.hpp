@@ -36,7 +36,7 @@ namespace oatpp { namespace consul {
 class Client {
 private:
   template<class T>
-  using List = oatpp::data::mapping::type::List<T>;
+  using List = oatpp::data::type::List<T>;
 
 public:
 

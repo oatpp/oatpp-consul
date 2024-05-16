@@ -24,7 +24,7 @@
 
 #include "Client.hpp"
 
-#include "oatpp/parser/json/mapping/ObjectMapper.hpp"
+#include "oatpp/json/ObjectMapper.hpp"
 
 namespace oatpp { namespace consul {
   
@@ -34,15 +34,10 @@ Client::Client(const std::shared_ptr<oatpp::web::client::RequestExecutor>& reque
 {}
 
 std::shared_ptr<Client::ObjectMapper> Client::createDefaultObjectMapper() {
-
-  auto serializerConfig = oatpp::parser::json::mapping::Serializer::Config::createShared();
-  serializerConfig->includeNullFields = false;
-
-  auto deserializerConfig = oatpp::parser::json::mapping::Deserializer::Config::createShared();
-  deserializerConfig->allowUnknownFields = true;
-  
-  return oatpp::parser::json::mapping::ObjectMapper::createShared(serializerConfig, deserializerConfig);
-
+  auto mapper = std::make_shared<oatpp::json::ObjectMapper>();
+  mapper->serializerConfig().json.includeNullElements = false;
+  mapper->deserializerConfig().mapper.allowUnknownFields = true;
+  return mapper;
 }
 
 std::shared_ptr<oatpp::data::mapping::ObjectMapper> Client::getObjectMapper() const {

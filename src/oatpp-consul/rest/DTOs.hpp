@@ -26,9 +26,9 @@
 #define oatpp_consul_rest_DTOs_hpp
 
 #include "oatpp/encoding/Base64.hpp"
-#include "oatpp/core/macro/codegen.hpp"
+#include "oatpp/macro/codegen.hpp"
 
-#include "oatpp/core/Types.hpp"
+#include "oatpp/Types.hpp"
 
 /* Begin DTO codegen */
 #include OATPP_CODEGEN_BEGIN(DTO)
